@@ -13,6 +13,10 @@ class ComponenteFinitura(ABC):
     def descrizione(self):
         pass
     
+    @abstractmethod
+    def calcola_prezzo(self):
+        pass
+    
     @property
     def codice(self):
         return self._codice
@@ -66,6 +70,8 @@ class Cravatta(ComponenteFinitura):
     def descrizione(self):
         return f"{self.__class__.__name__}, codice:{self.codice}, nome: {self.nome}, materiale: {self.materiale}, colore: {self.colore}, prezzo: {self.prezzo}, larghezza: {self.larghezza}"
     
+    def calcola_prezzo(self):
+        return self.prezzo + (2 * self.larghezza)
     @property
     def larghezza(self):
         return self.__larghezza
@@ -83,6 +89,16 @@ class Papillon(ComponenteFinitura):
 
     def descrizione(self):
         return f"{self.__class__.__name__}, codice:{self.codice}, nome: {self.nome}, materiale: {self.materiale}, colore: {self.colore}, prezzo: {self.prezzo}, tipo chiusura: {self.tipo_chiusura}"
+    
+    def calcola_prezzo(self):
+        if self.tipo_chiusura == "elastico":
+            return self.prezzo * 1.1
+        elif self.tipo_chisura == "regolabile":
+            return self._prezzo + 1.3
+        elif self.tipo_chiusura == "fissa":
+            return self._prezzo * 1.4
+        else:
+            return self.prezzo
     
     @property
     def tipo_chiusura(self):
@@ -102,6 +118,16 @@ class Pochette(ComponenteFinitura):
     def descrizione(self):
         return f"{self.__class__.__name__}, codice:{self.codice}, nome: {self.nome}, materiale: {self.materiale}, colore: {self.colore}, prezzo: {self.prezzo}, piega decorativa: {self.piega_decorativa}"
     
+    def calcola_prezzo(self):
+        if self.peiga_decorativa  == "piatta":
+            return self.prezzo * 1.1
+        elif self.peiga_decorativa  == "a punta":
+            return self._prezzo + 1.3
+        elif self.peiga_decorativa  == "a ventaglio":
+            return self._prezzo * 1.4
+        else:
+            return self.prezzo
+        
     @property
     def piega_decorativa(self):
         return self.__piega_decorativa
