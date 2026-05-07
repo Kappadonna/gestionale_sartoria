@@ -18,6 +18,10 @@ class ComponenteFinitura(ABC):
     def calcola_prezzo(self):
         pass
     
+    @abstractmethod
+    def vendi(self):
+        pass
+    
     @property
     def codice(self):
         return self._codice
@@ -82,6 +86,16 @@ class Cravatta(ComponenteFinitura):
     
     def calcola_prezzo(self):
         return self.prezzo + (2 * self.larghezza)
+    
+    def vendi(self):
+        if not self.venduto:
+            self.venduto = True
+            print(f"Cravatta {self.nome} venduta al prezzo di {self.calcola_prezzo()}€")
+            return True
+        else:
+            print(f"Cravatta {self.nome} è già stata venduta.")
+            return False
+    
     @property
     def larghezza(self):
         return self.__larghezza
@@ -109,6 +123,15 @@ class Papillon(ComponenteFinitura):
             return self._prezzo * 1.4
         else:
             return self.prezzo
+        
+    def vendi(self):
+        if not self.venduto:
+            self.venduto = True
+            print(f"Papillon {self.nome} venduto al prezzo di {self.calcola_prezzo()}€")
+            return True
+        else:
+            print(f"Papillon {self.nome} è già stato venduto.")
+            return False
     
     @property
     def tipo_chiusura(self):
@@ -137,6 +160,15 @@ class Pochette(ComponenteFinitura):
             return self._prezzo * 1.4
         else:
             return self.prezzo
+        
+    def vendi(self):
+        if not self.venduto:
+            self.venduto = True
+            print(f"Pochette {self.nome} venduta al prezzo di {self.calcola_prezzo()}€")
+            return True
+        else:
+            print(f"Pochette {self.nome} è già stata venduta.")
+            return False
         
     @property
     def piega_decorativa(self):
