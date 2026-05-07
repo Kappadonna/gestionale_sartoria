@@ -8,6 +8,7 @@ class ComponenteFinitura(ABC):
         self._materiale = materiale
         self._colore = colore
         self._prezzo = prezzo
+        self._venduto = False
         
     @abstractmethod
     def descrizione(self):
@@ -57,14 +58,23 @@ class ComponenteFinitura(ABC):
     def prezzo(self, nuovo_prezzo):
         if nuovo_prezzo > 0:
             self._prezzo = nuovo_prezzo
+            
+    @property
+    def venduto(self):
+        return self._venduto
+    
+    @venduto.setter
+    def venduto(self, valore):
+        if isinstance(valore, bool):
+            self._venduto = valore
     
     def __str__(self):
         return f"{self.codice}, {self.nome}, {self.materiale}, {self.colore}, {self.prezzo}€ "
     
 class Cravatta(ComponenteFinitura):
 
-    def __init__(self, codice, nome, materiale, colore, prezzo, larghezza):
-        super().__init__(codice, nome, materiale, colore, prezzo)
+    def __init__(self, codice, nome, materiale, colore, prezzo, venduto, larghezza):
+        super().__init__(codice, nome, materiale, colore, prezzo, venduto)
         self.__larghezza = larghezza
 
     def descrizione(self):
@@ -83,8 +93,8 @@ class Cravatta(ComponenteFinitura):
     
 class Papillon(ComponenteFinitura):
 
-    def __init__(self, codice, nome, materiale, colore, prezzo, tipo_chiusura):
-        super().__init__(codice, nome, materiale, colore, prezzo)
+    def __init__(self, codice, nome, materiale, colore, prezzo, venduto, tipo_chiusura):
+        super().__init__(codice, nome, materiale, colore, prezzo, venduto)
         self.__tipo_chiusura = tipo_chiusura
 
     def descrizione(self):
@@ -111,8 +121,8 @@ class Papillon(ComponenteFinitura):
     
 class Pochette(ComponenteFinitura):
 
-    def __init__(self, codice, nome, materiale, colore, prezzo, piega_decorativa):
-        super().__init__(codice, nome, materiale, colore, prezzo)
+    def __init__(self, codice, nome, materiale, colore, prezzo, venduto, piega_decorativa):
+        super().__init__(codice, nome, materiale, colore, prezzo, venduto)
         self.__piega_decorativa = piega_decorativa
 
     def descrizione(self):
@@ -135,34 +145,3 @@ class Pochette(ComponenteFinitura):
     @piega_decorativa.setter
     def piega_decorativa(self, nuova_piega_decorativa: str):
         self.__piega_decorativa = nuova_piega_decorativa    
-
-""" 
-c = Cravatta("C01", "Elegante", "Seta", "Blu", 50, 8)
-
-print(c.nome)
-print(c.prezzo)
-
-c.prezzo = 60
-
-print(c.prezzo)
-print(c.descrizione())
-
-p = Papillon("P01", "Elegante", "Seta", "Blu", 50, "elastico")
-
-print(p.nome)
-print(p.prezzo)
-
-p.prezzo = 60
-
-print(p.prezzo)
-print(p.descrizione())
-
-p = Pochette("P01", "sportiva", "Seta", "rossa", 50, "a punta")
-
-print(p.nome)
-print(p.prezzo)
-
-p.prezzo = 60
-
-print(p.prezzo)
-print(p.descrizione()) """
