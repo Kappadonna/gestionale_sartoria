@@ -1,0 +1,133 @@
+# Sistema di Gestione Sartoria – Analisi delle Direttive
+
+Ti spiego tutto in modo chiaro e strutturato.
+
+---
+
+## 1. Obiettivo del sistema
+
+Devi simulare un gestionale per una sartoria che produce capi di abbigliamento formale. Ci sono **due famiglie distinte di oggetti**:
+
+| Famiglia | Esempi |
+|---|---|
+| **Capi principali** | Smoking, completo classico, coordinato formale |
+| **Componenti di finitura** | Cravatta, papillon, fazzoletto, gemelli, ecc. |
+
+La distinzione è importante perché le due famiglie hanno attributi e comportamenti diversi, e devono essere gestite separatamente nel codice.
+
+---
+
+## 2. Architettura e polimorfismo
+
+Questo è il cuore tecnico del progetto. Il concetto chiave è:
+
+> **Una sola classe gestionale** crea e gestisce tutto tramite **metodi polimorfici**.
+
+Significa che invece di avere `CreatoreSmocking`, `CreatoreCompleto`, `CreatorePapillon`... hai **un'unica classe** (es. `SartoriaManager`) con metodi che si comportano diversamente in base al tipo richiesto.
+
+Il **meccanismo di polimorfismo** è a scelta del gruppo. Le opzioni tipiche in Python sono:
+
+- **Ereditarietà + override** – ogni capo è una sottoclasse con metodi ridefiniti
+- **Duck typing** – oggetti diversi con stessa interfaccia, senza ereditarietà forzata
+- **Factory pattern** – un metodo che istanzia la classe giusta in base a un parametro
+- **Dizionario di classi** – mapping tipo → classe, con chiamata dinamica
+
+L'importante è che nel `main` tu gestisca i capi **senza sapere il tipo specifico** – trattali tutti come "capo" e lascia che il polimorfismo faccia il lavoro.
+
+---
+
+## 3. Funzionalità del menu
+
+Il programma deve avere un menu interattivo con almeno queste voci:
+
+```
+1. Crea capo specifico       → l'utente inserisce i dati manualmente
+2. Modifica capo             → l'utente sceglie un capo esistente e lo modifica
+3. Elimina capo              → rimozione dal sistema
+4. Genera dati (random)      → creazione automatica di più capi
+```
+
+---
+
+## 4. Generazione dati random
+
+Quando l'utente sceglie "Genera dati", il sistema chiede:
+
+- **Quanti capi** creare (es. 10)
+- **Di quanti tipi** (es. 2 tipi → smoking e completo)
+- **Con quali componenti di finitura** (es. 2 → papillon e fazzoletto)
+
+Poi il sistema **randomizza automaticamente** tipo, colori, misure e componenti in modo coerente (es. non assegna una cravatta a uno smoking se non ha senso, oppure sceglie colori plausibili).
+
+---
+
+## 5. Analisi e statistiche
+
+Questa è la parte analitica del progetto. Devi poter interrogare i dati su tre livelli di granularità:
+
+**Livello 1 – Tutti i capi**
+- Quanti capi ci sono in totale
+- Colori più usati su tutto il parco capi
+
+**Livello 2 – Un singolo tipo**
+- Quanti pantaloni, quante giacche, quanti gilet (cioè componenti o sottotipi)
+- Colori più usati solo su un tipo specifico (es. solo i gilet)
+
+**Livello 3 – Tipo + personalizzazione specifica**
+- Es: le giacche *che hanno il papillon* → analisi del colore della giacca E del colore del papillon
+- Es: tutti i capi *che hanno il papillon* → quanti sono, quali colori dominano
+
+L'idea è filtrare progressivamente: da tutto → per tipo → per tipo + finitura.
+
+---
+
+## 6. Organizzazione del lavoro
+
+- Creare una **repository GitHub** con un `README.md` che documenti il gruppo, i ruoli e le scelte progettuali
+- Alternativa senza GitHub: file separati su Google Drive, poi unione manuale
+- Collaborazione via **Discord** o **Google Meet**
+
+---
+
+## 7. Feature extra (opzionale, entro il terzo check)
+
+Ogni gruppo può proporre una funzionalità aggiuntiva. Gli esempi suggeriti sono:
+
+- **Visualizzazione tabellare** dei dati (es. con `tabulate` o simile)
+- **Export CSV o TXT** dell'inventario o delle statistiche
+
+---
+
+## 8. Vincoli tecnici importanti
+
+Dalla distinzione "parte destra della traccia":
+
+- La vostra versione include **vincoli** (non la variante orientata a DB)
+- Questo significa probabilmente: validazione degli input, limiti sui valori ammessi, coerenza tra capo e componenti
+
+---
+
+## Riepilogo architetturale consigliato
+
+```
+main.py
+│
+├── models/
+│   ├── capo.py          # Classe base (o interfaccia) per i capi principali
+│   ├── smoking.py       # Sottoclasse
+│   ├── completo.py      # Sottoclasse
+│   ├── finitura.py      # Classe base per i componenti di finitura
+│   ├── papillon.py      # Sottoclasse finitura
+│   └── ...
+│
+├── manager/
+│   └── sartoria_manager.py  # UN'UNICA classe gestionale polimorfica
+│
+└── utils/
+    ├── generatore.py    # Logica random
+    └── analisi.py       # Statistiche e filtri
+```
+
+---
+
+Il punto più delicato è il **polimorfismo nella classe gestionale** – scegli bene il meccanismo (ti consiglio il factory pattern con dizionario di classi, è pulito e Pythonic) e costruisci tutto attorno a quello. Vuoi che ti mostri un esempio concreto di come strutturarlo?
