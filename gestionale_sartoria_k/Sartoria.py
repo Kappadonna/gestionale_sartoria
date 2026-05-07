@@ -1,9 +1,19 @@
 #importo le classi dei capi principali e dei componenti finitura
 from Capi_principali import CapoPrincipale, Giacca, Pantalone, Gilet 
 from Componenti_finitura import ComponenteFinitura, Cravatta, Papillon, Pochette 
+import csv
+import os
 
 #Classe che fa da contenitore centrale del sistema. Gestisce capi e componenti con metodi polimorfici
 class Sartoria:
+
+    VENDITE_FILE = "vendite.csv"
+    
+    MAPPA_TIPI = {
+        "giacca": Giacca, "pantalone": Pantalone, "gilet": Gilet,
+        "cravatta": Cravatta, "papillon": Papillon, "pochette": Pochette
+    }
+    
     def __init__(self):
         self._capi = [] #lista che conterrà oggetti di tipo CapoPrincipale o sue sottoclassi
         self._componenti = [] #lista che conterrà oggetti di tipo componentefinitura o sue sottoclassi
@@ -50,7 +60,7 @@ class Sartoria:
                     return
                 for capo in self._capi:
                     print(f"{capo.descrizione()} | Prezzo calcolato: €{capo.calcola_prezzo():.2f}") #il polimorfismo fa sì che descrizione() e calcola_prezzo() eseguano la versione della sottoclasse reale
-                print("\n>>> ANALISI DI TUTTI I COMPONENTI <<<")
+                
             
             case "2":
                 print("\n>>> ANALISI DI TUTTI I COMPONENTI <<<")
@@ -62,15 +72,8 @@ class Sartoria:
                 
 
     def analizza_per_tipo(self, tipo): #uso isinstance per filtrare la lista in base al tipo di classse richiesto
-        mappa_tipi = { #dizionario che associa una stringa leggibile alla classe corrispondente
-            "giacca": Giacca,
-            "pantalone": Pantalone,
-            "gilet": Gilet,
-            "cravatta": Cravatta,
-            "papillon": Papillon,
-            "pochette": Pochette
-        }
-        classe = mappa_tipi.get(tipo.lower()) #get restituisce none solose la chiave non esiste
+
+        classe = self.MAPPA_TIPI.get(tipo.lower()) #get restituisce none solose la chiave non esiste
         if classe is None:
             print(f"[!] Tipo '{tipo}' non riconosciuto")
             return
@@ -84,15 +87,8 @@ class Sartoria:
             print(f"{obj} | {obj.descrizione()}")
 
     def analizza_per_tipo_e_personalizzazione(self, tipo, valore): #combino il filtro per tipo con un confronto sul risultato di descrizione()
-        mappa_tipi = {
-            "giacca": Giacca,
-            "pantalone": Pantalone,
-            "gilet": Gilet,
-            "cravatta": Cravatta,
-            "papillon": Papillon,
-            "pochette": Pochette
-        }
-        classe = mappa_tipi.get(tipo.lower())
+
+        classe = self.MAPPA_TIPI.get(tipo.lower())
         if classe is None:
             print(f"Tipo '{tipo}' non riconosciuto")
             return
@@ -105,8 +101,48 @@ class Sartoria:
         for obj in trovati:
             print(f"{obj} | {obj.descrizione()}")
 
+    def salva_vendita(self, capo):
+        file_esiste = os.path.exists(self.VENDITE_FILE)
+
+        with open(self.VENDITE_FILE, "a", newline="", encoding="utf-8") as f:
+            fieldnames = ["codice", "tipo", "nome", "prezzo_finale"]
+            writer = csv.DictWriter(f, fieldnames=fieldnames)
+
+            if not file_esiste:        # scrive l'intestazione solo al primo accesso
+                writer.writeheader()
+
+            writer.writerow({
+                "codice":            capo.codice,
+                "tipo":              type(capo).__name__,
+                "nome":              capo.nome,
+                "prezzo_finale":     f"{capo.calcola_prezzo():.2f}",
+            })
+       
+    def vendi_capo(self, codice):
+        capo = self.cerca_capo(codice)
+        if capo is None:
+            print(f"[X] Nessun capo trovato con codice '{codice}'")
+            return False
+        if capo.venduto:
+            print(f"[!] Il capo '{capo.nome}' è già stato venduto")
+            return False
+        capo.venduto = True
+        self.salva_vendita(capo)
+        print(f"[✓] Vendita registrata: {capo.nome} — €{capo.calcola_prezzo():.2f}")
+        return True
+    
+    def analizza_venduti(self):
+        prodotti = self._capi + self._componenti
+        tot = 0
+        for p in prodotti:
+            if p.venduto == True:
+                print(p.descrizione())
+                prezzo = p.calcola_prezzo()
+                tot += prezzo
+        print(f"Il ricavato dei capi venduti è €{tot}")
+
     def get_capi(self): #espongo la lista 
-        return self._capi #restituisco una copia della lista così l'originale non può essere modificata dall'esterno
+        return list(self._capi) #restituisco una copia della lista così l'originale non può essere modificata dall'esterno
 
     def get_componenti(self):
-        return self._componenti
+        return list(self._componenti)

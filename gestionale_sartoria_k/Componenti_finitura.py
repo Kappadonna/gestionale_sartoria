@@ -87,7 +87,7 @@ class Cravatta(ComponenteFinitura):
         self.__larghezza = larghezza
 
     def descrizione(self):
-        return f"{self.__class__.__name__}, codice:{self.codice}, nome: {self.nome}, materiale: {self.materiale}, colore: {self.colore}, prezzo: {self.prezzo}, larghezza: {self.larghezza}"
+        return f"{self.__class__.__name__}, codice:{self.codice}, nome: {self.nome}, materiale: {self.materiale}, colore: {self.colore}, prezzo: {self.calcola_prezzo()}, larghezza: {self.larghezza}"
     
     def calcola_prezzo(self):
         return self.prezzo + (2 * self.larghezza)
@@ -108,12 +108,12 @@ class Papillon(ComponenteFinitura):
         self.__tipo_chiusura = tipo_chiusura
 
     def descrizione(self):
-        return f"{self.__class__.__name__}, codice:{self.codice}, nome: {self.nome}, materiale: {self.materiale}, colore: {self.colore}, prezzo: {self.prezzo}, tipo chiusura: {self.tipo_chiusura}"
+        return f"{self.__class__.__name__}, codice:{self.codice}, nome: {self.nome}, materiale: {self.materiale}, colore: {self.colore}, prezzo: {self.calcola_prezzo()}, tipo chiusura: {self.tipo_chiusura}"
     
     def calcola_prezzo(self):
         if self.tipo_chiusura == "elastico":
             return self.prezzo * 1.1
-        elif self.tipo_chisura == "regolabile":
+        elif self.tipo_chiusura == "regolabile":
             return self._prezzo + 1.3
         elif self.tipo_chiusura == "fissa":
             return self._prezzo * 1.4
@@ -136,7 +136,7 @@ class Pochette(ComponenteFinitura):
         self.__piega_decorativa = piega_decorativa
 
     def descrizione(self):
-        return f"{self.__class__.__name__}, codice:{self.codice}, nome: {self.nome}, materiale: {self.materiale}, colore: {self.colore}, prezzo: {self.prezzo}, piega decorativa: {self.piega_decorativa}"
+        return f"{self.__class__.__name__}, codice:{self.codice}, nome: {self.nome}, materiale: {self.materiale}, colore: {self.colore}, prezzo: {self.calcola_prezzo()}, piega decorativa: {self.piega_decorativa}"
     
     def calcola_prezzo(self):
         if self.peiga_decorativa  == "piatta":

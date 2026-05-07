@@ -102,7 +102,7 @@ class Giacca(CapoPrincipale):
         self.__numero_bottoni = numero_bottoni
 
     def descrizione(self):
-        return f"{self.__class__.__name__}, codice:{self.codice}, nome: {self.nome}, tessuto: {self.tessuto}, colore: {self.colore}, prezzo: {self.prezzo}, numero bottoni: {self.numero_bottoni}"
+        return f"{self.__class__.__name__}, codice:{self.codice}, nome: {self.nome}, tessuto: {self.tessuto}, colore: {self.colore}, prezzo: {self.calcola_prezzo()}, numero bottoni: {self.numero_bottoni}"
     
     def calcola_prezzo(self):
         return self.prezzo + (self.numero_bottoni * 10)
@@ -126,7 +126,7 @@ class Pantalone(CapoPrincipale):
         self.__tipo_taglio = tipo_taglio
 
     def descrizione(self):
-        return f"{self.__class__.__name__}, codice:{self.codice}, nome: {self.nome}, tessuto: {self.tessuto}, colore: {self.colore}, prezzo: {self.prezzo}, tipo taglio: {self.tipo_taglio}"
+        return f"{self.__class__.__name__}, codice:{self.codice}, nome: {self.nome}, tessuto: {self.tessuto}, colore: {self.colore}, prezzo: {self.calcola_prezzo()}, tipo taglio: {self.tipo_taglio}"
 
     def calcola_prezzo(self):
         if self.tipo_taglio.lower() == "slim":
@@ -153,7 +153,7 @@ class Gilet(CapoPrincipale):
         self.rever_presente = rever_presente
 
     def descrizione(self):
-        return f"{self.__class__.__name__}, codice:{self.codice}, nome: {self.nome}, tessuto: {self.tessuto}, colore: {self.colore}, prezzo: {self.prezzo}, rever presente: {self.rever_presente}"
+        return f"{self.__class__.__name__}, codice:{self.codice}, nome: {self.nome}, tessuto: {self.tessuto}, colore: {self.colore}, prezzo: {self.calcola_prezzo()}, rever presente: {self.rever_presente}"
 
     def calcola_prezzo(self):
         if self.rever_presente:
