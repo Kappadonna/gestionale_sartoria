@@ -1,0 +1,276 @@
+
+<style>
+  * { box-sizing: border-box; }
+  .root { padding: 16px 0 8px; font-family: var(--font-sans); }
+  .family-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 0; }
+  .sub-row { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr; gap: 8px; margin-bottom: 12px; }
+  .card { border-radius: var(--border-radius-lg); border: 1px solid var(--color-border-tertiary); overflow: hidden; }
+  .card-hdr { padding: 8px 12px 7px; font-size: 12px; font-weight: 500; font-family: var(--font-mono); display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+  .badge { font-size: 10px; padding: 1px 6px; border-radius: 99px; font-weight: 500; letter-spacing: .02em; }
+  .card-body { padding: 10px 12px 12px; }
+  .section-lbl { font-size: 10px; font-weight: 500; text-transform: uppercase; letter-spacing: .05em; color: var(--color-text-tertiary); margin: 8px 0 3px; }
+  .section-lbl:first-child { margin-top: 0; }
+  .items { list-style: none; margin: 0; padding: 0; }
+  .items li { font-family: var(--font-mono); font-size: 11px; padding: 1.5px 0; display: flex; align-items: center; gap: 5px; }
+  .dot { width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; }
+  .sq  { width: 5px; height: 5px; border-radius: 1px; flex-shrink: 0; }
+  .abstract-item { font-style: italic; }
+  .divider { height: 1px; background: var(--color-border-tertiary); margin: 8px 0; }
+  .sub-card { border-radius: var(--border-radius-md); border: 1px solid var(--color-border-tertiary); overflow: hidden; }
+  .sub-hdr { padding: 5px 8px; font-size: 11px; font-weight: 500; font-family: var(--font-mono); }
+  .sub-body { padding: 6px 8px 8px; }
+  .sub-body .section-lbl { font-size: 9px; margin: 5px 0 2px; }
+  .sub-body .section-lbl:first-child { margin-top: 0; }
+  .sub-body .items li { font-size: 10px; }
+  .connector-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 0; }
+  .conn-v { width: 1px; height: 12px; background: var(--color-border-secondary); }
+  .conn-arr { color: var(--color-text-tertiary); font-size: 10px; line-height: 1; margin-top: 2px; }
+  .full-row { margin-bottom: 12px; }
+  .main-body { padding: 10px 12px 12px; display: grid; grid-template-columns: 1fr 1fr; gap: 0 20px; }
+  .file-label { font-size: 10px; font-weight: 500; color: var(--color-text-tertiary); text-align: center; margin: 2px 0 8px; letter-spacing: .03em; }
+  .file-bracket { border: 1px dashed var(--color-border-secondary); border-radius: var(--border-radius-md); padding: 8px 8px 4px; margin-bottom: 0; }
+
+  .hdr-coral { background: #FAECE7; color: #712B13; }
+  .hdr-coral .badge { background: #F5C4B3; color: #4A1B0C; }
+  .dot-coral { background: #D85A30; } .sq-coral { background: #D85A30; }
+  @media (prefers-color-scheme: dark) { .hdr-coral { background: #712B13; color: #F5C4B3; } .hdr-coral .badge { background: #4A1B0C; color: #F0997B; } }
+
+  .hdr-teal { background: #E1F5EE; color: #085041; }
+  .hdr-teal .badge { background: #9FE1CB; color: #04342C; }
+  .dot-teal { background: #1D9E75; } .sq-teal { background: #1D9E75; }
+  @media (prefers-color-scheme: dark) { .hdr-teal { background: #085041; color: #9FE1CB; } .hdr-teal .badge { background: #04342C; color: #5DCAA5; } }
+
+  .hdr-purple { background: #EEEDFE; color: #3C3489; }
+  .dot-purple { background: #7F77DD; } .sq-purple { background: #7F77DD; }
+  @media (prefers-color-scheme: dark) { .hdr-purple { background: #3C3489; color: #CECBF6; } }
+
+  .hdr-amber { background: #FAEEDA; color: #633806; }
+  .dot-amber { background: #BA7517; } .sq-amber { background: #BA7517; }
+  @media (prefers-color-scheme: dark) { .hdr-amber { background: #633806; color: #FAC775; } }
+
+  .hdr-gray { background: var(--color-background-secondary); color: var(--color-text-primary); }
+  .dot-gray { background: var(--color-text-tertiary); } .sq-gray { background: var(--color-text-tertiary); }
+</style>
+
+<div class="root">
+
+  <!-- FILE BRACKETS + ABSTRACT CLASSES -->
+  <div class="family-row" style="margin-bottom:0">
+
+    <!-- capo_principale.py -->
+    <div>
+      <div class="file-label">📄 capo_principale.py</div>
+      <div class="file-bracket">
+        <div class="card" style="margin-bottom:8px">
+          <div class="card-hdr hdr-coral">
+            <span>CapoPrincipale</span>
+            <span class="badge">ABC</span>
+          </div>
+          <div class="card-body">
+            <div class="section-lbl">Import</div>
+            <ul class="items"><li><span class="dot dot-coral"></span>from abc import ABC, abstractmethod</li></ul>
+            <div class="section-lbl">Attributi __init__</div>
+            <ul class="items">
+              <li><span class="dot dot-coral"></span>codice, nome, tessuto</li>
+              <li><span class="dot dot-coral"></span>colore, taglia, prezzo</li>
+            </ul>
+            <div class="divider"></div>
+            <div class="section-lbl">Metodi</div>
+            <ul class="items">
+              <li><span class="sq sq-coral"></span>@property getters</li>
+              <li><span class="sq sq-coral"></span>setters (prezzo, taglia)</li>
+              <li><span class="sq sq-coral"></span>__str__()</li>
+            </ul>
+            <div class="section-lbl">@abstractmethod</div>
+            <ul class="items">
+              <li><span class="sq sq-coral"></span><span class="abstract-item">descrizione()</span></li>
+              <li><span class="sq sq-coral"></span><span class="abstract-item">calcola_prezzo()</span></li>
+            </ul>
+          </div>
+        </div>
+        <!-- connectors -->
+        <div style="display:flex;justify-content:space-around;padding:0 4px;margin-bottom:2px">
+          <div style="display:flex;flex-direction:column;align-items:center"><div class="conn-v"></div><div class="conn-arr">▼</div></div>
+          <div style="display:flex;flex-direction:column;align-items:center"><div class="conn-v"></div><div class="conn-arr">▼</div></div>
+          <div style="display:flex;flex-direction:column;align-items:center"><div class="conn-v"></div><div class="conn-arr">▼</div></div>
+        </div>
+        <!-- subclasses -->
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px">
+          <div class="sub-card">
+            <div class="sub-hdr hdr-coral">Giacca</div>
+            <div class="sub-body">
+              <div class="section-lbl">Proprio</div>
+              <ul class="items"><li><span class="dot dot-coral"></span>numero_botoni</li></ul>
+              <div class="section-lbl">Override</div>
+              <ul class="items">
+                <li><span class="sq sq-coral"></span><span class="abstract-item">descrizione()</span></li>
+                <li><span class="sq sq-coral"></span><span class="abstract-item">calcola_prezzo()</span></li>
+              </ul>
+            </div>
+          </div>
+          <div class="sub-card">
+            <div class="sub-hdr hdr-coral">Pantalone</div>
+            <div class="sub-body">
+              <div class="section-lbl">Proprio</div>
+              <ul class="items"><li><span class="dot dot-coral"></span>tipo_taglio</li></ul>
+              <div class="section-lbl">Override</div>
+              <ul class="items">
+                <li><span class="sq sq-coral"></span><span class="abstract-item">descrizione()</span></li>
+                <li><span class="sq sq-coral"></span><span class="abstract-item">calcola_prezzo()</span></li>
+              </ul>
+            </div>
+          </div>
+          <div class="sub-card">
+            <div class="sub-hdr hdr-coral">Gilet</div>
+            <div class="sub-body">
+              <div class="section-lbl">Proprio</div>
+              <ul class="items"><li><span class="dot dot-coral"></span>rever_presente</li></ul>
+              <div class="section-lbl">Override</div>
+              <ul class="items">
+                <li><span class="sq sq-coral"></span><span class="abstract-item">descrizione()</span></li>
+                <li><span class="sq sq-coral"></span><span class="abstract-item">calcola_prezzo()</span></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- componente_finitura.py -->
+    <div>
+      <div class="file-label">📄 componente_finitura.py</div>
+      <div class="file-bracket">
+        <div class="card" style="margin-bottom:8px">
+          <div class="card-hdr hdr-teal">
+            <span>ComponenteFinitura</span>
+            <span class="badge">ABC</span>
+          </div>
+          <div class="card-body">
+            <div class="section-lbl">Import</div>
+            <ul class="items"><li><span class="dot dot-teal"></span>from abc import ABC, abstractmethod</li></ul>
+            <div class="section-lbl">Attributi __init__</div>
+            <ul class="items">
+              <li><span class="dot dot-teal"></span>codice, nome, materiale</li>
+              <li><span class="dot dot-teal"></span>colore, prezzo</li>
+            </ul>
+            <div class="divider"></div>
+            <div class="section-lbl">Metodi</div>
+            <ul class="items">
+              <li><span class="sq sq-teal"></span>@property getters</li>
+              <li><span class="sq sq-teal"></span>setter (prezzo)</li>
+              <li><span class="sq sq-teal"></span>__str__()</li>
+            </ul>
+            <div class="section-lbl">@abstractmethod</div>
+            <ul class="items">
+              <li><span class="sq sq-teal"></span><span class="abstract-item">descrizione()</span></li>
+            </ul>
+          </div>
+        </div>
+        <!-- connectors -->
+        <div style="display:flex;justify-content:space-around;padding:0 4px;margin-bottom:2px">
+          <div style="display:flex;flex-direction:column;align-items:center"><div class="conn-v"></div><div class="conn-arr">▼</div></div>
+          <div style="display:flex;flex-direction:column;align-items:center"><div class="conn-v"></div><div class="conn-arr">▼</div></div>
+          <div style="display:flex;flex-direction:column;align-items:center"><div class="conn-v"></div><div class="conn-arr">▼</div></div>
+        </div>
+        <!-- subclasses -->
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px">
+          <div class="sub-card">
+            <div class="sub-hdr hdr-teal">Cravatta</div>
+            <div class="sub-body">
+              <div class="section-lbl">Proprio</div>
+              <ul class="items"><li><span class="dot dot-teal"></span>larghezza</li></ul>
+              <div class="section-lbl">Override</div>
+              <ul class="items"><li><span class="sq sq-teal"></span><span class="abstract-item">descrizione()</span></li></ul>
+            </div>
+          </div>
+          <div class="sub-card">
+            <div class="sub-hdr hdr-teal">Papillon</div>
+            <div class="sub-body">
+              <div class="section-lbl">Proprio</div>
+              <ul class="items"><li><span class="dot dot-teal"></span>tipo_chiusura</li></ul>
+              <div class="section-lbl">Override</div>
+              <ul class="items"><li><span class="sq sq-teal"></span><span class="abstract-item">descrizione()</span></li></ul>
+            </div>
+          </div>
+          <div class="sub-card">
+            <div class="sub-hdr hdr-teal">Pochette</div>
+            <div class="sub-body">
+              <div class="section-lbl">Proprio</div>
+              <ul class="items"><li><span class="dot dot-teal"></span>piega_decorativa</li></ul>
+              <div class="section-lbl">Override</div>
+              <ul class="items"><li><span class="sq sq-teal"></span><span class="abstract-item">descrizione()</span></li></ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="height:12px"></div>
+
+  <!-- SARTORIA -->
+  <div class="full-row card">
+    <div class="card-hdr hdr-purple">📄 sartoria.py — Sartoria</div>
+    <div class="main-body">
+      <div>
+        <div class="section-lbl">Attributi __init__</div>
+        <ul class="items">
+          <li><span class="dot dot-purple"></span>capi &nbsp;<span style="font-size:10px;color:var(--color-text-tertiary)">(lista di CapoPrincipale)</span></li>
+          <li><span class="dot dot-purple"></span>componenti &nbsp;<span style="font-size:10px;color:var(--color-text-tertiary)">(lista di ComponenteFinitura)</span></li>
+        </ul>
+        <div class="section-lbl">Gestione capi</div>
+        <ul class="items">
+          <li><span class="sq sq-purple"></span>aggiungi_capo(capo)</li>
+          <li><span class="sq sq-purple"></span>rimuovi_capo(codice)</li>
+          <li><span class="sq sq-purple"></span>modifica_capo(codice, ...)</li>
+          <li><span class="sq sq-purple"></span>cerca_capo(codice)</li>
+          <li><span class="sq sq-purple"></span>aggiungi_componente(comp)</li>
+        </ul>
+      </div>
+      <div>
+        <div class="section-lbl">Analisi (polimorfiche)</div>
+        <ul class="items">
+          <li><span class="sq sq-purple"></span>analizza_tutti()</li>
+          <li><span class="sq sq-purple"></span>analizza_per_tipo(tipo)</li>
+          <li><span class="sq sq-purple"></span>analizza_per_tipo_e_pers(tipo, valore)</li>
+        </ul>
+        <div class="section-lbl">Note Python</div>
+        <ul class="items">
+          <li><span class="dot dot-purple"></span>usa isinstance() per filtrare</li>
+          <li><span class="dot dot-purple"></span>chiama descrizione() polimorfo</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN -->
+  <div class="full-row card">
+    <div class="card-hdr hdr-gray">📄 main.py — punto di ingresso (solo funzioni)</div>
+    <div class="main-body">
+      <div>
+        <div class="section-lbl">Funzioni menu</div>
+        <ul class="items">
+          <li><span class="sq sq-gray"></span>main()</li>
+          <li><span class="sq sq-gray"></span>crea_capo(sartoria)</li>
+          <li><span class="sq sq-gray"></span>modifica_capo(sartoria)</li>
+          <li><span class="sq sq-gray"></span>elimina_capo(sartoria)</li>
+        </ul>
+      </div>
+      <div>
+        <div class="section-lbl">Funzioni dati e analisi</div>
+        <ul class="items">
+          <li><span class="sq sq-gray"></span>genera_dati(sartoria) — random</li>
+          <li><span class="sq sq-gray"></span>menu_analisi(sartoria)</li>
+        </ul>
+        <div class="section-lbl">Import</div>
+        <ul class="items">
+          <li><span class="dot dot-gray"></span>from capo_principale import …</li>
+          <li><span class="dot dot-gray"></span>from componente_finitura import …</li>
+          <li><span class="dot dot-gray"></span>from sartoria import Sartoria</li>
+          <li><span class="dot dot-gray"></span>import random</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+</div>
